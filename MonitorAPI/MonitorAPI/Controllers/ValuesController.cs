@@ -6,15 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MonitorAPI.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            //return new string[] { "value1", "value2" };
+            MonitorAPI.Data.Api API = new Data.Api();
+            if (API.GetStatus())
+            {
+                return "The API is live!";
+            }
+            else
+            {
+                return "The API is down!";
+            }
+
         }
 
         // GET api/values/5
