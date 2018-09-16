@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace MonitorAPI.Data
 {
@@ -9,17 +12,17 @@ namespace MonitorAPI.Data
     public class DataObject
     {
         public string Value { get; set; }
+        public string Url { get; set; }
     }
 
     public class Api
-    {
-        private const string URL = "https://localhost:44311/api/values";
-        private string urlParameters = "?id=999";
+    { 
 
-        public bool GetStatus()
+        public bool GetStatus(string URL)
         {
+            string FullURL = URL;
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(URL);
+            client.BaseAddress = new Uri(FullURL);
 
             // Add an Accept header for JSON format.
             client.DefaultRequestHeaders.Accept.Add(
@@ -45,4 +48,32 @@ namespace MonitorAPI.Data
 
         }
     }
+
+    public class Website
+    {
+        public bool GetStatus(string URL, string word)
+        {
+
+            if (ReadTextFromUrl(URL).Contains(word))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        string ReadTextFromUrl(string url)
+        {
+            // WebClient is still convenient
+            // Assume UTF8, but detect BOM - could also honor response charset I suppose
+            using (var client = new WebClient())
+            using (var stream = client.OpenRead(url))
+            using (var textReader = new StreamReader(stream, Encoding.UTF8, true))
+            {
+                return textReader.ReadToEnd();
+            }
+        }
+
+    }
+
 }

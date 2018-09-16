@@ -15,17 +15,30 @@ namespace MonitorAPI.Controllers
         [HttpGet]
         public ActionResult<string> Get()
         {
+            string output;
             //return new string[] { "value1", "value2" };
             MonitorAPI.Data.Api API = new Data.Api();
-            if (API.GetStatus())
+            MonitorAPI.Data.Website site = new Data.Website();
+
+            if (API.GetStatus("https://gmsapi.azurewebsites.net/Record/break"))
             {
-                return "The API is live!";
+                output = "The API is live!";
             }
             else
             {
-                return "The API is down!";
+                output = "The API is down!";
             }
 
+            if (site.GetStatus("https://gms.azurewebsites.net/", "Nepwoord"))
+            {
+                output += "The website is live!";
+            }
+            else
+            {
+                output += "The website is down!";
+            }
+
+            return output;
         }
 
         // GET api/values/5
