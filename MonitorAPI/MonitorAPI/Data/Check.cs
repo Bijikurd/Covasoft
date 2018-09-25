@@ -13,11 +13,16 @@ namespace MonitorAPI.Data
     {
         public string Value { get; set; }
         public string Url { get; set; }
-    }
+    } 
 
-    public class Api
+    public class Check
     { 
 
+
+    }
+
+    public class Service
+    {
         public bool GetStatus(string URL)
         {
             string FullURL = URL;
