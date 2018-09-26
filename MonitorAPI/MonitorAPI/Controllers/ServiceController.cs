@@ -24,25 +24,6 @@ namespace MonitorAPI.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetWebsite([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var todo = await _context.Websites.FindAsync(id);
-
-            if (todo == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(todo);
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
         public async Task<IActionResult> GetService([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -50,18 +31,18 @@ namespace MonitorAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var todo = await _context.Services.FindAsync(id);
+            var service = await _context.Services.FindAsync(id);
 
-            if (todo == null)
+            if (service == null)
             {
                 return NotFound();
             }
 
-            return Ok(todo);
+            return Ok(service);
         }
 
         // POST api/values
-        [HttpPost("services/add/")]
+        [HttpPost("service/add/")]
         public async Task<IActionResult> Post([FromBody] Service data)
         {
 
@@ -88,35 +69,6 @@ namespace MonitorAPI.Controllers
 
         }
 
-        // POST api/values
-        [HttpPost("website/add")]
-        public async Task<IActionResult> Post([FromBody] string link, string word)
-        {
-
-            MonitorAPI.Data.Website Website = new Data.Website();
-            var website = new Website();
-            website.Link = link;
-            website.Word = word;
-
-            if (Website.GetStatus(website.Link, website.Word))
-            {
-                website.Status = true;
-            }
-            else
-            {
-                website.Status = false;
-            }
-
-            using (var db = new MonitorContext())
-            {
-                db.Websites.Add(website);
-                await db.SaveChangesAsync();
-            }
-
-            return CreatedAtAction("GetWebsite", new { id = website.Id }, website);
-
-        }
-
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
@@ -124,9 +76,22 @@ namespace MonitorAPI.Controllers
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("service/{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
+            using (var db = new MonitorContext())
+            {
+                var service = db.Services.SingleOrDefault(s => s.Id == id);
+
+                if (service == null || id <= 0)
+                {
+                    return NotFound();
+                }
+
+                db.Services.Remove(service);
+                await db.SaveChangesAsync();
+                return Ok(service);
+            }
         }
     }
 }
