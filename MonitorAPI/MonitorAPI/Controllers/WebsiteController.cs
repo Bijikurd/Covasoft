@@ -15,11 +15,12 @@ namespace MonitorAPI.Controllers
     {
         private readonly MonitorContext _context;
 
-        // GET api/values
-        [HttpGet]
-        public void Get()
+        [HttpGet("websites/all")]
+        public IEnumerable<Website> Get()
         {
-
+            var db = new MonitorContext();
+            return db.Websites;
+  
         }
 
         // GET api/values/5
@@ -42,7 +43,7 @@ namespace MonitorAPI.Controllers
         }
 
         // POST api/values
-        [HttpPost("website/add/")]
+        [HttpPost("websites/add/")]
         public async Task<IActionResult> Post([FromBody] Website data)
         {
 
@@ -70,14 +71,8 @@ namespace MonitorAPI.Controllers
 
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
         // DELETE api/values/5
-        [HttpDelete("website/{id}")]
+        [HttpDelete("websites/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             using (var db = new MonitorContext())
@@ -93,6 +88,30 @@ namespace MonitorAPI.Controllers
                 await db.SaveChangesAsync();
                 return Ok(website);
             }
+        }
+
+        [HttpGet("websites/Edit/{id}")]
+        public async Task<IActionResult> Update(int id)
+        {
+            using (var db = new MonitorContext())
+            {
+                var website = db.Websites.SingleOrDefault(s => s.Id == id);
+
+                if (website == null)
+                {
+                    return NotFound();
+                }
+
+                db.Websites.Update(website);
+                await db.SaveChangesAsync();
+                return Ok(website);
+            }
+        }
+
+        // PUT api/values/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
         }
     }
 }
