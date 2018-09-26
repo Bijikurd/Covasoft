@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MonitorAPI.DAL;
 using MonitorAPI.DAL.Models;
 
@@ -90,8 +91,8 @@ namespace MonitorAPI.Controllers
             }
         }
 
-        [HttpGet("websites/Edit/{id}")]
-        public async Task<IActionResult> Update(int id)
+        [HttpPut("websites/edit/{id}")]
+        public async Task<IActionResult> Put(int id, Website data)
         {
             using (var db = new MonitorContext())
             {
@@ -102,16 +103,22 @@ namespace MonitorAPI.Controllers
                     return NotFound();
                 }
 
+                website.Word = data.Word;
+
+                MonitorAPI.Data.Website tester = new Data.Website();
+                if (tester.GetStatus(website.Link, website.Word))
+                {
+                    website.Status = true;
+                }
+                else
+                {
+                    website.Status = false;
+                }
+
                 db.Websites.Update(website);
                 await db.SaveChangesAsync();
                 return Ok(website);
             }
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
         }
     }
 }

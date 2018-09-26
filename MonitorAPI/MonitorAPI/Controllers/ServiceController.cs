@@ -90,10 +90,35 @@ namespace MonitorAPI.Controllers
             }
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+
+        [HttpPut("services/edit/{id}")]
+        public async Task<IActionResult> Put(int id, Service data)
         {
+            using (var db = new MonitorContext())
+            {
+                var service = db.Services.SingleOrDefault(s => s.Id == id);
+
+                if (service == null)
+                {
+                    return NotFound();
+                }
+
+                service.Link = data.Link;
+
+                MonitorAPI.Data.Service tester = new Data.Service();
+                if (tester.GetStatus(service.Link))
+                {
+                    service.Status = true;
+                }
+                else
+                {
+                    service.Status = false;
+                }
+
+                db.Services.Update(service);
+                await db.SaveChangesAsync();
+                return Ok(service);
+            }
         }
     }
 }
