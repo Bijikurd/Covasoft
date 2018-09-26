@@ -30,8 +30,9 @@ namespace MonitorAPI.Data
             client.BaseAddress = new Uri(FullURL);
 
             // Add an Accept header for JSON format.
-            client.DefaultRequestHeaders.Accept.Add(
-            new MediaTypeWithQualityHeaderValue("application/json"));
+            // Fix 406 Error
+            //client.DefaultRequestHeaders.Accept.Add(
+            //new MediaTypeWithQualityHeaderValue("application/json"));
 
             // List data response.
             try
