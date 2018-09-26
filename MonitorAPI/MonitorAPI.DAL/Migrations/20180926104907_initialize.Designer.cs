@@ -9,7 +9,7 @@ using MonitorAPI.DAL;
 namespace MonitorAPI.DAL.Migrations
 {
     [DbContext(typeof(MonitorContext))]
-    [Migration("20180925152701_initialize")]
+    [Migration("20180926104907_initialize")]
     partial class initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,8 @@ namespace MonitorAPI.DAL.Migrations
 
                     b.Property<bool>("Status");
 
+                    b.Property<string>("TimeStamp");
+
                     b.HasKey("Id");
 
                     b.ToTable("Services");
@@ -44,6 +46,8 @@ namespace MonitorAPI.DAL.Migrations
                     b.Property<string>("Link");
 
                     b.Property<bool>("Status");
+
+                    b.Property<string>("TimeStamp");
 
                     b.Property<string>("Word");
 

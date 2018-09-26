@@ -28,6 +28,8 @@ namespace MonitorAPI.DAL.Migrations
 
                     b.Property<bool>("Status");
 
+                    b.Property<string>("TimeStamp");
+
                     b.HasKey("Id");
 
                     b.ToTable("Services");
@@ -42,6 +44,8 @@ namespace MonitorAPI.DAL.Migrations
                     b.Property<string>("Link");
 
                     b.Property<bool>("Status");
+
+                    b.Property<string>("TimeStamp");
 
                     b.Property<string>("Word");
 

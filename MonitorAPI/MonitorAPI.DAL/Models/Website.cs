@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MonitorAPI.DAL.Models
 {
@@ -13,5 +14,6 @@ namespace MonitorAPI.DAL.Models
 
         public bool Status { get; set; }
 
+        public string TimeStamp { get; set; }
     }
 }

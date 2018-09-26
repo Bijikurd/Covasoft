@@ -14,7 +14,8 @@ namespace MonitorAPI.DAL.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Link = table.Column<string>(nullable: true),
-                    Status = table.Column<bool>(nullable: false)
+                    Status = table.Column<bool>(nullable: false),
+                    TimeStamp = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,7 +30,8 @@ namespace MonitorAPI.DAL.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Link = table.Column<string>(nullable: true),
                     Word = table.Column<string>(nullable: true),
-                    Status = table.Column<bool>(nullable: false)
+                    Status = table.Column<bool>(nullable: false),
+                    TimeStamp = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

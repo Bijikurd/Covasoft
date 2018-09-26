@@ -51,6 +51,7 @@ namespace MonitorAPI.Controllers
             MonitorAPI.Data.Service Service = new Data.Service();
             var service = new Service();
             service.Link = data.Link;
+            service.TimeStamp = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
 
             if (Service.GetStatus(service.Link))
             {
@@ -103,6 +104,7 @@ namespace MonitorAPI.Controllers
                     return NotFound();
                 }
 
+                service.TimeStamp = DateTime.Now.ToString("dd-MM-yyyyTHH:mm:sszzz");
                 service.Link = data.Link;
 
                 MonitorAPI.Data.Service tester = new Data.Service();

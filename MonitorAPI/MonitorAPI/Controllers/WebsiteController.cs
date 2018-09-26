@@ -52,6 +52,7 @@ namespace MonitorAPI.Controllers
             var website = new Website();
             website.Link = data.Link;
             website.Word = data.Word;
+            website.TimeStamp = DateTime.Now.ToString("dd-MM-yyyyTHH:mm:sszzz");
 
             if (Website.GetStatus(website.Link, website.Word))
             {
@@ -104,6 +105,7 @@ namespace MonitorAPI.Controllers
                 }
 
                 website.Word = data.Word;
+                website.TimeStamp = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
 
                 MonitorAPI.Data.Website tester = new Data.Website();
                 if (tester.GetStatus(website.Link, website.Word))
