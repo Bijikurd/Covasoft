@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MonitorAPI.DAL</name>
+    </assembly>
+    <members>
+        <member name="T:MonitorAPI.DAL.Models.Service">
+            <summary>
+            The Service class. Which is used as an object.
+            </summary>
+        </member>
+        <member name="P:MonitorAPI.DAL.Models.Service.Id">
+            <summary>
+            Contains different elements which make up a service.
+            </summary>
+            <param>
+            Make the <c>Id</c> the primary key.
+            </param>
+        </member>
+        <member name="P:MonitorAPI.DAL.Models.Service.Link">
+            <value>The URL of a service. <c>string</c></value>
+        </member>
+        <member name="P:MonitorAPI.DAL.Models.Service.Status">
+            <value>The Status of a service. <c>bool</c></value>
+        </member>
+        <member name="P:MonitorAPI.DAL.Models.Service.TimeStamp">
+            <value>The Timestamp of a service. <c>bool</c></value>
+        </member>
+        <member name="T:MonitorAPI.DAL.Models.Website">
+            <summary>
+            The Website class. Which is used as an object.
+            </summary>
+        </member>
+        <member name="P:MonitorAPI.DAL.Models.Website.Id">
+            <summary>
+            Contains different elements which make up a Website.
+            </summary>
+            <param>
+            Make the <c>Id</c> the primary key.
+            </param>
+        </member>
+        <member name="P:MonitorAPI.DAL.Models.Website.Link">
+            <value>The URL of a service. <c>string</c></value>
+        </member>
+        <member name="P:MonitorAPI.DAL.Models.Website.Word">
+            <value>The Word which will be used to check the service. <c>string</c></value>
+        </member>
+        <member name="P:MonitorAPI.DAL.Models.Website.Status">
+            <value>The Status of a service. <c>string</c></value>
+        </member>
+        <member name="P:MonitorAPI.DAL.Models.Website.TimeStamp">
+            <value>The TimeStamp of a service at the time of the check. <c>string</c></value>
+        </member>
+    </members>
+</doc>
