@@ -13,11 +13,11 @@ namespace MonitorAPI.Controllers
 
     [Route("[controller]")]
     [ApiController]
-    public class WebsiteController : ControllerBase
+    public class WebsitesController : ControllerBase
     {
         private readonly MonitorContext _context;
 
-        [HttpGet("websites/all")]
+        [HttpGet]
         public IEnumerable<Website> Get()
         {
             var db = new MonitorContext();
@@ -45,7 +45,7 @@ namespace MonitorAPI.Controllers
         }
 
         // POST api/values
-        [HttpPost("websites/add/")]
+        [HttpPost("website/add/")]
         public async Task<IActionResult> Post([FromBody] Website data)
         {
 
@@ -75,7 +75,7 @@ namespace MonitorAPI.Controllers
         }
 
         // DELETE api/values/5
-        [HttpDelete("websites/{id}")]
+        [HttpDelete("website/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             using (var db = new MonitorContext())
@@ -93,7 +93,7 @@ namespace MonitorAPI.Controllers
             }
         }
 
-        [HttpPut("websites/edit/{id}")]
+        [HttpPut("website/edit/{id}")]
         public async Task<IActionResult> Put(int id, Website data)
         {
             using (var db = new MonitorContext())

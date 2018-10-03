@@ -16,7 +16,7 @@ namespace MonitorAPI.Controllers
         private readonly MonitorContext _context;
 
         // GET api/values
-        [HttpGet("services/all")]
+        [HttpGet]
         public IEnumerable<Service> Get()
         {
             var db = new MonitorContext();
@@ -44,7 +44,7 @@ namespace MonitorAPI.Controllers
         }
 
         // POST api/values
-        [HttpPost("services/add/")]
+        [HttpPost("service/add/")]
         public async Task<IActionResult> Post([FromBody] Service data)
         {
 
@@ -73,7 +73,7 @@ namespace MonitorAPI.Controllers
         }
 
         // DELETE api/values/5
-        [HttpDelete("services/{id}")]
+        [HttpDelete("service/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             using (var db = new MonitorContext())
@@ -92,7 +92,7 @@ namespace MonitorAPI.Controllers
         }
 
 
-        [HttpPut("services/edit/{id}")]
+        [HttpPut("service/edit/{id}")]
         public async Task<IActionResult> Put(int id, Service data)
         {
             using (var db = new MonitorContext())
