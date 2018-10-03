@@ -9,7 +9,7 @@ using MonitorAPI.DAL.Models;
 namespace MonitorAPI.Controllers
 {
 
-    [Route("/")]
+    [Route("[controller]")]
     [ApiController]
     public class ServicesController : ControllerBase
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using MonitorAPI.DAL.Models;
 namespace MonitorAPI.Controllers
 {
 
-    [Route("/")]
+    [Route("[controller]")]
     [ApiController]
     public class WebsiteController : ControllerBase
     {
