@@ -15,8 +15,9 @@ namespace MonitorAPI.Controllers
     [ApiController]
     public class WebsitesController : ControllerBase
     {
-        private readonly MonitorContext _context;
-
+        /// <summary>
+        /// Returns all websites.
+        /// </summary>
         [HttpGet]
         public IEnumerable<Website> Get()
         {
@@ -25,16 +26,21 @@ namespace MonitorAPI.Controllers
   
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
+        /// <summary>
+        /// Returns specific a website.
+        /// </summary>
+        /// <param name="id">The id of a website.</param>
+        /// <response code="200">Requested website found and returned.</response>
+        /// <response code="400">Requested website not found.</response>
+        [HttpGet("website/{id}")]
         public async Task<IActionResult> GetWebsite([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var site = await _context.Websites.FindAsync(id);
+            var db = new MonitorContext();
+            var site = await db.Websites.FindAsync(id);
 
             if (site == null)
             {
@@ -44,7 +50,21 @@ namespace MonitorAPI.Controllers
             return Ok(site);
         }
 
-        // POST api/values
+        /// <summary>
+        /// Creates a new website object to check.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /website/add/
+        ///     {
+        ///        "link" : "https://www.example.com",
+        ///        "word" : "Foo"
+        ///     }
+        ///
+        /// </remarks>
+        /// <returns>A newly created Website</returns>
+        /// <response code="201">Returns the newly created website object</response>
         [HttpPost("website/add/")]
         public async Task<IActionResult> Post([FromBody] Website data)
         {
@@ -74,7 +94,19 @@ namespace MonitorAPI.Controllers
 
         }
 
-        // DELETE api/values/5
+        /// <summary>
+        /// Deletes the specified website.  
+        /// </summary>
+        /// <param name="id">The id of a website.</param>   
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     DELETE /website/{id}
+        ///
+        /// </remarks>
+        /// <returns>Response code.</returns>
+        /// <response code="200">Succesfully deleted the service.</response>
+        /// <response code="400">Requested website to delete not found.</response>
         [HttpDelete("website/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -93,6 +125,22 @@ namespace MonitorAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates the specified website with a new link and word. Also re-checks the status.
+        /// </summary>
+        /// <remarks>
+        /// <param name="id">The id of a website.</param>   
+        /// Sample request:
+        ///
+        ///     PUT /service/edit/{id}
+        ///     {
+        ///        "link" : "https://www.example.com",
+        ///        "word" : "Foo"
+        ///     }
+        ///
+        /// </remarks>
+        /// <returns>The updated website object.</returns>
+        /// <response code="200">Returns the newly created website</response>
         [HttpPut("website/edit/{id}")]
         public async Task<IActionResult> Put(int id, Website data)
         {

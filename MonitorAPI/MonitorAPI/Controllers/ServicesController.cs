@@ -13,9 +13,10 @@ namespace MonitorAPI.Controllers
     [ApiController]
     public class ServicesController : ControllerBase
     {
-        private readonly MonitorContext _context;
 
-        // GET api/values
+        /// <summary>
+        /// Returns all services.
+        /// </summary>
         [HttpGet]
         public IEnumerable<Service> Get()
         {
@@ -24,16 +25,20 @@ namespace MonitorAPI.Controllers
            
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
+        /// <summary>
+        /// Returns specific a service.
+        /// </summary>
+        /// <param name="id">The id of a service.</param>
+        /// <response code="400">Requested service not found.</response>
+        [HttpGet("service/{id}")]
         public async Task<IActionResult> GetService([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var service = await _context.Services.FindAsync(id);
+            var db = new MonitorContext();
+            var service = await db.Services.FindAsync(id);
 
             if (service == null)
             {
@@ -43,7 +48,20 @@ namespace MonitorAPI.Controllers
             return Ok(service);
         }
 
-        // POST api/values
+        /// <summary>
+        /// Creates a new service object to check.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /service/add/
+        ///     {
+        ///        "link": "https://www.exampleapi.com",
+        ///     }
+        ///
+        /// </remarks>
+        /// <returns>A newly created Service</returns>
+        /// <response code="201">Returns the newly created service object</response>
         [HttpPost("service/add/")]
         public async Task<IActionResult> Post([FromBody] Service data)
         {
@@ -72,7 +90,19 @@ namespace MonitorAPI.Controllers
 
         }
 
-        // DELETE api/values/5
+        /// <summary>
+        /// Deletes the specified service.  
+        /// </summary>
+        /// <param name="id">The id of a service.</param>   
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     DELETE /service/{id}
+        ///
+        /// </remarks>
+        /// <returns>Response code.</returns>
+        /// <response code="200">Succesfully deleted the service.</response>
+        /// <response code="400">Requested service to delete not found.</response>
         [HttpDelete("service/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -91,7 +121,21 @@ namespace MonitorAPI.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Updates the specified service with a new link and re-checks the status.
+        /// </summary>
+        /// <remarks>
+        /// <param name="id">The id of a service.</param>   
+        /// Sample request:
+        ///
+        ///     PUT /service/edit/{id}
+        ///     {
+        ///        "link": "https://www.exampleapi.com",
+        ///     }
+        ///
+        /// </remarks>
+        /// <returns>The updated service object.</returns>
+        /// <response code="200">Returns the newly created service</response>
         [HttpPut("service/edit/{id}")]
         public async Task<IActionResult> Put(int id, Service data)
         {

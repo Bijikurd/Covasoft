@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace MonitorAPI
@@ -30,8 +26,31 @@ namespace MonitorAPI
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                    c.SwaggerDoc("v1", new Info
+                    {
+                    Version = "v1",
+                    Title = "Monitor API",
+                    Description = ".NET Core API for monitoring services and websites.",
+                    TermsOfService = "None",
+                    Contact = new Contact
+                    {
+                        Name = "Covasoft",
+                        Email = string.Empty,
+                        Url = "https://github.com/Bijikurd/Covasoft"
+                    },
+                    License = new License
+                    {
+                        Name = "License.",
+                        Url = "https://github.com/Bijikurd/Covasoft/blob/master/LICENSE"
+                    }
+                    });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +72,8 @@ namespace MonitorAPI
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Monitor API V1");
+                c.RoutePrefix = "docs";
             });
 
             app.UseHttpsRedirection();
