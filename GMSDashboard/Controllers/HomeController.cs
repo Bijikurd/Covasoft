@@ -15,6 +15,11 @@ namespace GMSDashboard.Controllers
             return View();
         }
 
+        public IActionResult Header()
+        {
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -33,6 +38,7 @@ namespace GMSDashboard.Controllers
         {
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
