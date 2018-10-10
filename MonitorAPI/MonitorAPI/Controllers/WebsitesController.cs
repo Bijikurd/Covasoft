@@ -16,12 +16,17 @@ namespace MonitorAPI.Controllers
     public class WebsitesController : ControllerBase
     {
         /// <summary>
-        /// Returns all websites.
+        /// Returns all websites. And updates every status and timestamps.
         /// </summary>
         [HttpGet]
         public IEnumerable<Website> Get()
         {
             var db = new MonitorContext();
+
+            foreach(Website site in db.Websites){
+               Put(site.Id, site);
+            }
+
             return db.Websites;
   
         }

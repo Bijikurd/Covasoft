@@ -8,7 +8,7 @@ namespace LibraryData.Models
     {
         public int Id { get; set; }
         public string NotificationId { get; set; }
-        public string RespsonseCode { get; set; }
+        public string StatusCode { get; set; }
 
     }
 }

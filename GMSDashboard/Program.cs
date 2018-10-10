@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using GMSDashboard.Scheduler;
 
 namespace GMSDashboard
 {
@@ -14,6 +15,7 @@ namespace GMSDashboard
     {
         public static void Main(string[] args)
         {
+            JobScheduler.Start().GetAwaiter().GetResult();
             CreateWebHostBuilder(args).Build().Run();
         }
 

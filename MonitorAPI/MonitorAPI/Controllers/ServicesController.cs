@@ -15,12 +15,18 @@ namespace MonitorAPI.Controllers
     {
 
         /// <summary>
-        /// Returns all services.
+        /// Returns all services. And updates every status and timestamps.
         /// </summary>
         [HttpGet]
         public IEnumerable<Service> Get()
         {
             var db = new MonitorContext();
+            
+            foreach(Service system in db.Services)
+            {
+                Put(system.Id, system);
+            }
+
             return db.Services;
            
         }

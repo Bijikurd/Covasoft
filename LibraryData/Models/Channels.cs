@@ -10,6 +10,5 @@ namespace LibraryData.Models
         public int UserId { get; set; }
         public string SlackId { get; set; }
         public string DiscordId { get; set; }
-
     }
 }

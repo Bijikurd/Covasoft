@@ -10,8 +10,15 @@ namespace LibraryData
 
         public LibraryContext(DbContextOptions options) : base(options) { }
 
-        //object parton inlcuden boven aan als model zodat die gebruikt kan worden
-        public DbSet<Patron> Patrons { get; set; }
+        public DbSet<Channels> Channels { get; set; }
+
+        public DbSet<LibraryData.Models.System> Systems { get; set; }
+
+        public DbSet<SystemStatus> SystemStatuses { get; set; }
+
+        public DbSet<Triggers> Triggers { get; set; }
+
+        public DbSet<Users> Users { get; set; }
 
     }
 }
