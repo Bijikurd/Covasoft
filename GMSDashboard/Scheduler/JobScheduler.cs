@@ -22,7 +22,7 @@ namespace GMSDashboard.Scheduler
 
             var checkTrigger = TriggerBuilder.Create()
                 .StartNow()
-                .WithSimpleSchedule(x => x.WithIntervalInSeconds(10).RepeatForever())
+                .WithSimpleSchedule(x => x.WithIntervalInSeconds(5).RepeatForever())
                 .Build();
 
             await scheduler.ScheduleJob(checkJob, checkTrigger);

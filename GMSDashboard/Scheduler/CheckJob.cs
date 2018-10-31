@@ -1,18 +1,17 @@
-﻿using System;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
-using LibraryData;
 using Quartz;
 
 namespace GMSDashboard.Scheduler
 {
     public class CheckJob : IJob
     {
+
         public async Task Execute(IJobExecutionContext context)
         {
-            Console.WriteLine(GetAll("https://localhost:44341/Websites"));
-            Console.ReadLine();
+            Debug.Print("\n ----------------------- DATA ----------------------- \n");
+            Debug.Print(GetAll("https://localhost:44341/Websites"));
         }
 
         public string GetAll(string url)
@@ -24,5 +23,6 @@ namespace GMSDashboard.Scheduler
 
             return response;
         }
+
     }
 }

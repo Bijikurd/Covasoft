@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MonitorAPI.DAL;
 using MonitorAPI.DAL.Models;
 
